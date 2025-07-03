@@ -8,7 +8,7 @@ const CompanyController = {
       res.status(200).json(companys);
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error retrieving addresses");
+      res.status(500).send("Error retrieving company");
     }
   },
 
@@ -32,8 +32,27 @@ const CompanyController = {
         console.error(error);
         res.status(500).send("Error retrieving company");
     }
-  }
+  },
+  // NOTE: CREAMOS UNA COMPAÑIA
+  async createCompanyHandler(req, res) {
+    const { nombre, direccion, telefono } = req.body;
 
+    try{
+      const result = await CompanyModel.createCompany(
+        nombre,
+        direccion,
+        telefono
+      );
+      //NOTE: 201, "Creado", indica que la solicitud del cliente fue exitosa
+      //  y como resultado se ha creado un nuevo recurso en el servidor
+      res.status(201).json(result);
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error retrieving company");
+    }
+
+  }
   //NOTE: AQUI AÑADIMOS EL RESTO DEL CRUD
 };
 
