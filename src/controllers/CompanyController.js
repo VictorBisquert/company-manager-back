@@ -35,15 +35,11 @@ const CompanyController = {
   },
   // NOTE: CREAMOS UNA COMPAÑIA
   async createCompanyHandler(req, res) {
-    const { nombre, direccion, telefono } = req.body;
+    //const { nombre, direccion, telefono } = req.body;
+    const companyData = req.body;
 
     try{
-      const result = await CompanyModel.createCompany(
-        nombre,
-        direccion,
-        telefono
-      );
-      //NOTE: 201, "Creado", indica que la solicitud del cliente fue exitosa
+      const result = await CompanyModel.createCompany(companyData);
       //  y como resultado se ha creado un nuevo recurso en el servidor
       res.status(201).json(result);
       

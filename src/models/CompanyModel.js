@@ -20,18 +20,23 @@ const CompanyModel = {
     }
   },
   //NOTE: CREAR COMPAÑIA
-  async createCompany({nombre, direccion, telefono}) {
+  async createCompany(companyData) {
     const checkCompanyQuery = "SELECT id FROM Compania WHERE nombre = ?";
-    const InsertQuery = "ISERT INTO Compania (nombre, direccion, telefono) VALUES (?, ?, ?)";
-
+    const InsertQuery =
+      "INSERT INTO Compania (nombre, direccion, telefono) VALUES (?, ?, ?)";
+      
     try{
-      const [existing] = await pool.execute(checkCompanyQuery, [nombre]);
+      const [existing] = await pool.execute(checkCompanyQuery, [companyData.nombre]);
       
       if (existing.length > 0) {
         throw new Error("Ya existe una compañía con ese nombre.");
       }
 
-      const [result] = await pool.execute(InsertQuery, [nombre, direccion, telefono]);
+      const [result] = await pool.execute(InsertQuery, [
+        companyData.nombre,
+        companyData.direccion,
+        companyData.telefono,
+      ]);
 
       return result;
 
