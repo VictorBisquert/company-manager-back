@@ -4,6 +4,8 @@ const cors = require("cors");
 
 //NOTE: TRAEMOS EL ROUTES DE COMPANY
 const companyRoutes = require("./routes/companyRoutes");
+const taskRoutes = require("./routes/TaskRoutes");
+const workerRoutes = require("./routes/WorkerRoutes");
 
 dotenv.config();
 
@@ -39,6 +41,8 @@ app.use((err, req, res, next) => {
 
 //NOTE: RUTAS
 app.use("/api/company", companyRoutes);
+app.use("/api/task", taskRoutes);
+app.use("/api/worker", workerRoutes);
 
 const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
